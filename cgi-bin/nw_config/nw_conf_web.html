@@ -1,0 +1,64 @@
+#!/bin/sh
+PATH=/bin:/usr/bin:/sbin:/usr/sbin
+
+######## HEADER ###########
+
+cat <<HEADER
+
+$(cat header_html)
+
+ <script type="text/javascript">
+    var upgr={
+	ajax:function(st)
+	{
+	    this.show('mostrar');
+	},
+	show:function(el)
+	{
+	    this.getID(el).style.display='';
+	},
+	getID:function(el)
+	{
+	    return document.getElementById(el);
+	}
+    }
+ </script>
+HEADER
+
+#########################
+####### MAIN VIEW #######
+#########################
+echo "<div id=\"box\">"
+
+##### Boton para guardar cambios y reiniciar el nodo  #####
+cat <<FORM_SAVE
+<center>
+        <form name="form1" action="./saveAndReboot.cgi" METHOD="POST" onsubmit="return upgr.ajax()">	
+        <INPUT TYPE="submit" NAME="set" VALUE="Guardar y Reiniciar">
+        </form>		
+FORM_SAVE
+
+
+cat <<BASIC_SETTINGS
+<form name="frmBasicSettings" action="basicSettings.cgi" METHOD="GET">	
+			Root Password:<br><input type="text" name="rootPass" /><br>
+			WPA2 Password:<br><input type="text" name="wpa2Pass" /><br>
+			WEB User:<br><input type="text" name="webUser" /><br>
+			WEB Password:<br><input type="text" name="webPass" /><br>
+			WiFiDog:<br><input type="text" name="wifiDog" /><br>
+			Hostname:<br><input type="text" name="hostname" /><br>
+			WirelessMode:<br><input type="text" name="wirelesMode" /><br>
+			Traffic Shaping Status:<br><input type="checkbox" name="tsStatus" /><br>
+			Traffic Shaping How Much:<br><input type="text" name="tsHowMuch" /><br>
+			<INPUT TYPE="submit" NAME="set" VALUE="SaveBasicSettings">
+</form>
+BASIC_SETTINGS
+
+
+echo "</div>"
+######## FOOTER #########
+cat <<FOOTER
+
+$(cat footer_html)
+
+FOOTER

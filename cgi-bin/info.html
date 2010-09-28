@@ -1,0 +1,75 @@
+#!/bin/sh
+PATH=/bin:/usr/bin:/sbin:/usr/sbin
+cat << EOF
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <title>Nightwing: Node Info</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" type="text/css" href="../style.css">
+    <link rel="stylesheet" type="text/css" href="../niftyCorners.css">
+    <script type="text/javascript" src="../niftycube.js"></script>
+    <script type="text/javascript">
+      window.onload=function(){
+          Nifty("ul#nav a","small transparent top");
+          Nifty("div#box","big");
+      }
+    </script>
+  </head>
+  <body>
+    <div id="menu">
+      <ul id="nav">
+        <li id="home"><a href="/">Home</a></li>
+        <li id="info" class="activelink"><a href="#">Info</a></li>
+        <li id="up"><a href="upgrade.html">Upgrade</a></li>
+        <li id="cs"><a href="clientOnLine.html">ClientStatus</a></li>
+		<li id="nw_conf"> <a href="nw_config/nw_conf_web.html">nw_conf</a></li>
+      </ul>
+    </div>
+EOF
+eval i=0
+for element in wifidog.node.id bmx_mode.node.mode bmxd.general.gateway_class bmxd.general.routing_class \
+system.@system[0].hostname system.@system[0].log_ip bmxd.general.visualisation_srv wireless.wifi0.channel \
+wireless.wifi0.hwmode wireless.wifi0.antenna wireless.mesh.bssid nwnode.ts.status \
+nwnode.ts.share_rate wireless.public.ssid wireless.private.ssid wifidog.node.server \
+wifidog.node.ssl wifidog.node.change
+do
+   let i=$i+1
+   eval $(echo tmp=$(uci get $element))
+   eval VAR${i}=$(httpd -d $tmp)
+done
+cat << EOF
+<div id="box">
+<h2>Node values</h2>
+<ul>
+<li><b>Node ID:</b> $VAR1 </li>
+<li><b>Firmware Version:</b> $(cat /etc/nightwing_version) </li>
+<li><b>Node Mode:</b> $VAR2</li>
+<li><b>Gateway Class:</b> $VAR3</li>
+<li><b>Routing Class:</b> $VAR4</li>
+<li><b>Host Name:</b> $VAR5</li>
+<li><b>Server Log IP:</b> $VAR6</li>
+<li><b>Visualisation Server:</b> $VAR7</li>
+<li><b>Node Channel:</b> $VAR8</li>
+<li><b>Wireless Mode:</b> $VAR9</li>
+<li><b>Antenna Mode:</b> $VAR10</li>
+<li><b>Mesh BSSID:</b> $VAR11</li>
+<li><b>Node TS Mode:</b> $(if [ $VAR12 != "0" ];then echo "Enable";else echo "Disable";fi)</li>
+<li><b>Share Rate:</b> $VAR13 kbps</li>
+<li><b>Public AP SSID:</b> $VAR14</li>
+<li><b>Private AP SSID:</b> $VAR15</li>
+<li><b>WiFiDog Server:</b> $VAR16</li>
+<li><b>WiFiDog SSL:</b> $VAR17</li>
+<li><b>Current DNS:</b> $(for i in $( cat /etc/resolv.conf.default | grep ^nameserver | cut -d " " -f2); do echo -n $i","; done | sed 's/,$//')</li>
+</ul>
+</div>
+<p></p>
+<div id="footer">
+<center>
+        <p>Nightwing by <a href="http://www.lugro-mesh.org.ar/>LUGRo-Mesh</a></p>
+</center>
+</div>
+</body>
+</html>
+EOF

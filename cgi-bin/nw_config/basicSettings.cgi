@@ -44,38 +44,39 @@ TRAFFIC_SHAPING_HOWMUCH=`echo "$QUERY_STRING" | sed -n 's/^.*tsHowMuch=\([^&]*\)
 
 if [ ! -z $ROOT_PASSWORD ]
 then
-	echo "llamar funcion cambiar root password"
+	echo "llamar funcion cambiar root password<br>"
 fi
 
 if [ ! -z $WPA2_PASSPHASE ]
 then
-	echo "llamar funcion cambiar wpa2 password"
+	echo "llamar funcion cambiar wpa2 password<br>"
 fi
 
 if [ ! -z $WEB_ADMIN_USER -o ! -z $WEB_ADMIN_PASS ]
 then
-	echo "llamar funcion cambiar pass o usuario"
+	echo "llamar funcion cambiar pass o usuario<br>"
 fi
 
 if [ ! -z $WIFIDOG_ACCESS ]
 then
-	echo "llamar funcion cambiar pass wifidog"
+	echo "llamar funcion cambiar pass wifidog<br>"
 fi
 
 if [ ! -z $HOSTNAME ]
 then
-	echo "llamar funcion cambiar hostname"
+	echo "llamar funcion cambiar hostname<br>"
 fi
 
 if [ ! -z $TRAFFIC_SHAPING_STATUS -a ! -z $TRAFFIC_SHAPING_HOWMUCH ]
 then
-	echo "cambiar traffic shaping"
+	echo "cambiar traffic shaping<br>"
 fi
+
 
 # our html code
 echo "<html>"
 echo "<head><title>Base Settings Succefully Changed!</title></head>"
 echo "<body>"
-echo "$QUERY_STRING"
+echo "$(echo  $QUERY_STRING | sed 's/\&/\<br\>/g')"
 echo "</body>"
 echo "</html>"

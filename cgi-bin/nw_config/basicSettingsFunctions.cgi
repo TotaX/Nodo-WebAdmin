@@ -6,7 +6,7 @@ WMODE="wireless.wifi0.hwmode"
 W_PRIVATE_KEY="wireless.private.key"
 NODE_TS="nwnode.ts.status"
 
-function case_root_pw()
+case_root_pw ()
 {
 	PASSWORD=$1
 	USUARIO=root
@@ -18,7 +18,7 @@ function case_root_pw()
 	fi
 }
 
-function case_httpd_pass_change()
+case_httpd_pass_change ()
 {
 	HTTPPASS="$1"
 	HTTPUSER="$(awk -F: '{print $2}' /etc/httpd.conf)"
@@ -30,7 +30,7 @@ function case_httpd_pass_change()
 	fi
 }
 
-function case_httpd_user_change()
+case_httpd_user_change ()
 {
 		echo "Enter user name. Requires a user name of 1 to 8 characters:"
 		HTTPUSER2=$1
@@ -43,7 +43,8 @@ function case_httpd_user_change()
 }
 
 
-function wpa2_pass_change(){
+wpa2_pass_change ()
+{
 	WPA2PASS=$1
 	if [[ "${#WPA2PASS}" -gt 7 && "${#WPA2PASS}" -lt 64 ]];
 	then
@@ -54,7 +55,7 @@ function wpa2_pass_change(){
 	fi
 }
 
-function wifi_mode()
+wifi_mode ()
 {
 		MODE=$1
 		uci set $WMODE="$MODE"
@@ -62,7 +63,7 @@ function wifi_mode()
 }
 
 #TRAFFIC SHARE HOW MUCH DO YOU SHARE?
-function ap_share() 
+ap_share () 
 {
     NEWVALUE=$1
 	
@@ -86,10 +87,10 @@ function ap_share()
 	else
 		echo "New value is not a number."
 	fi
-
 }
+
 #TS ENABLED | DISABLED
-function case_ts()
+case_ts ()
 {
 	STATUS=$1
 	if [ $STATUS == "on" ]
@@ -109,3 +110,4 @@ function case_ts()
 		fi
 	fi
 }
+

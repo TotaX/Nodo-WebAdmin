@@ -1,6 +1,18 @@
 #!/bin/sh
 PATH=/bin:/usr/bin:/sbin:/usr/sbin
 
+######## This Environment ####
+#HOSTNAME=$(uci get "system.@system[0].hostname")
+HOSTNAME=NanoteX
+#WEB_USER=$(awk -F: '{print $2}' /etc/httpd.conf)
+WEB_USER=$(awk -F: '{print $2}' /home/nano/WWW_LUGRO/httpd.conf)
+#WMODE=$(uci get "wireless.wifi0.hwmode")
+WMODE="11g"
+#TS_STATUS=$(if [ $(uci_get "nwnode.ts.status") != 0 ]; then echo Mode Enable; else echo Mode Disable;fi)
+TS_STATUS=Enable
+#TS_SHARE_RATE=$(uci get "nwnode.ts.share_rate")
+TS_SHARE_RATE=128
+
 ######## HEADER ###########
 
 cat <<HEADER
@@ -40,16 +52,24 @@ FORM_SAVE
 
 
 cat <<BASIC_SETTINGS
-<form name="frmBasicSettings" action="basicSettings.cgi" METHOD="GET">	
-			Root Password:<br><input type="text" name="rootPass" /><br>
-			WPA2 Password:<br><input type="text" name="wpa2Pass" /><br>
-			WEB User:<br><input type="text" name="webUser" /><br>
-			WEB Password:<br><input type="text" name="webPass" /><br>
-			WiFiDog:<br><input type="text" name="wifiDog" /><br>
-			Hostname:<br><input type="text" name="hostname" /><br>
-			WirelessMode:<br><input type="text" name="wirelesMode" /><br>
-			Traffic Shaping Status:<br><input type="checkbox" name="tsStatus" /><br>
-			Traffic Shaping How Much:<br><input type="text" name="tsHowMuch" /><br>
+<form name="frmBasicSettings" action="basicSettings.cgi" METHOD="GET">
+			Root Password:<input type="text" name="rootPass" /><br>
+			WPA2 Password:<input type="text" name="wpa2Pass" /><br>
+			WEB User:<input type="text" name="webUser" /><b>Actual WebUser: </b>$WEB_USER<br>
+			WEB Password:<input type="text" name="webPass" /><br>
+			WiFiDog:<input type="text" name="wifiDog" /><br>
+			Hostname:<input type="text" name="hostname" /> <b>Actual HostName:</b>$HOSTNAME<br>
+			WirelessMode:
+			 <SELECT name="wirelesMode">
+				<OPTION selected label="ninguno" value="">Ninguno</OPTION>
+				<OPTGROUP label="Please Select A Wireless Mode">
+					<OPTION label="3.7.1" value="11b">11b</OPTION>
+					<OPTION label="3.7" value="11g">11g</OPTION>
+					<OPTION label="3.5" value="11bg">11bg</OPTION>
+				</OPTGROUP>
+			</SELECT> <b>Actual:</b>$WMODE<br>
+			Traffic Shaping Status:<input type="checkbox" name="tsStatus" /> <b>Status:</b> $TS_STATUS<br>
+			Traffic Shaping How Much:<input type="text" name="tsHowMuch" /> <b>Sharing:</b> $TS_SHARE_RATE<br>
 			<INPUT TYPE="submit" NAME="set" VALUE="SaveBasicSettings">
 </form>
 BASIC_SETTINGS

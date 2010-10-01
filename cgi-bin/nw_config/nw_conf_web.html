@@ -2,16 +2,16 @@
 PATH=/bin:/usr/bin:/sbin:/usr/sbin
 
 ######## This Environment ####
-#HOSTNAME=$(uci get "system.@system[0].hostname")
-HOSTNAME=NanoteX
-#WEB_USER=$(awk -F: '{print $2}' /etc/httpd.conf)
-WEB_USER=$(awk -F: '{print $2}' /home/nano/WWW_LUGRO/httpd.conf)
-#WMODE=$(uci get "wireless.wifi0.hwmode")
-WMODE="11g"
-#TS_STATUS=$(if [ $(uci_get "nwnode.ts.status") != 0 ]; then echo Mode Enable; else echo Mode Disable;fi)
-TS_STATUS=Enable
-#TS_SHARE_RATE=$(uci get "nwnode.ts.share_rate")
-TS_SHARE_RATE=128
+HOSTNAME=$(uci get "system.@system[0].hostname")
+#HOSTNAME=NanoteX
+WEB_USER=$(awk -F: '{print $2}' /etc/httpd.conf)
+#WEB_USER=$(awk -F: '{print $2}' /home/nano/WWW_LUGRO/httpd.conf)
+WMODE=$(uci get "wireless.wifi0.hwmode")
+#WMODE="11g"
+TS_STATUS=$(if [ $(uci_get "nwnode.ts.status") != 0 ]; then echo Mode Enable; else echo Mode Disable;fi)
+#TS_STATUS=Enable
+TS_SHARE_RATE=$(uci get "nwnode.ts.share_rate")
+#TS_SHARE_RATE=128
 
 ######## HEADER ###########
 

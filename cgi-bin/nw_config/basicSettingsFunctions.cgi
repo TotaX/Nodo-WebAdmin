@@ -1,4 +1,6 @@
 #!/bin/sh
+# Modified By: Fernando F Nicola <nicolaff@gmail.com>
+# To: Lugro-Mesh
 
 GATEWAY_CLASS="bmxd.general.gateway_class"
 SHARE_RATE="nwnode.ts.share_rate"

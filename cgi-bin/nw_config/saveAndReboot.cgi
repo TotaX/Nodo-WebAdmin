@@ -18,10 +18,10 @@ cat<<HEADER
 HEADER
 
 cat<<MAIN
-<b> $$ </b>
+<b> Please Wait. Reiniciando! </b>
 MAIN
 
 cat<<FOOTER
 	$(cat footer_html)
 FOOTER
-#exit 0
+exit 0

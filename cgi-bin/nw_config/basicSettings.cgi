@@ -1,4 +1,8 @@
 #!/bin/sh
+
+# Modified By: Fernando F Nicola <nicolaff@gmail.com>
+# To: Lugro-Mesh
+
 . ./basicSettingsFunctions.cgi
 
 #{

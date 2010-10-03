@@ -7,6 +7,7 @@ function disconnectUser(user_ip)
 		print "Desconectando Ip USer:" CMD
 	else
 		print "No se pudo desconectar Usuario con IP: " user_ip
+close(CMD)
 }
 
 function getUserIp(user_id)

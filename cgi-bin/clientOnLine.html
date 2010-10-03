@@ -1,4 +1,7 @@
 #!/bin/sh
+# Modified By: Fernando F Nicola <nicolaff@gmail.com>
+# To: Lugro-Mesh
+
 PATH=/bin:/usr/bin:/sbin:/usr/sbin
 cat <<EOF
 
@@ -34,6 +37,7 @@ EOF
 cat <<EOF
 $(wdctl status | awk '
 BEGIN {
+		boolUserConect=0
 		print "<div id=\"box\">"
 		print "<center><b>Users On Line</b></center>"
 		print "<form name=\"frmClientOnline\" action=\"resetUsersSelected.cgi\" METHOD=\"GET\">"
@@ -42,6 +46,7 @@ BEGIN {
       } 
 
 /Client\ .*/ {
+		boolUserConect=1
 		CLIENT_ID=$2
 		getline
 		IP=$2
@@ -62,7 +67,8 @@ BEGIN {
 
 END {
 	print  "</ul>"
-	print  "<p></p><p></p><center><INPUT TYPE=\"submit\" NAME=\"resetUsers\" VALUE=\"ResetSelectedUsers\"></center><br>" 
+	if(boolUserConect)
+		print  "<p></p><p></p><center><INPUT TYPE=\"submit\" NAME=\"resetUsers\" VALUE=\"ResetSelectedUsers\"></center><br>" 
 	print "</form>"
 	print  "</div>"
 }')

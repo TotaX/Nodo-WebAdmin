@@ -1,6 +1,7 @@
 #!/bin/awk -f
 # Modified By: Fernando F Nicola <nicolaff@gmail.com>
 # To: Lugro-Mesh
+
 function disconnectUser(user_ip)
 { 
 	CMD = "wdctl reset " user_ip

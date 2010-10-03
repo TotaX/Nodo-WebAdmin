@@ -3,6 +3,7 @@
 # To: Lugro-Mesh
 
 # our html code
+echo "Content-type: text/html\n"
 echo "<html>"
 echo "<head><title>Base Settings Changed!</title></head>"
 echo "<body>"

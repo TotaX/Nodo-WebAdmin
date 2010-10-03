@@ -48,7 +48,7 @@ WEB_WIRELESS_MODE=`echo "$QUERY_STRING" | sed -n 's/^.*wirelesMode=\([^&]*\).*$/
 WEB_TRAFFIC_SHAPING_STATUS=`echo "$QUERY_STRING" | sed -n 's/^.*tsStatus=\([^&]*\).*$/\1/p' | sed "s/%20/ /g"`
 WEB_TRAFFIC_SHAPING_HOWMUCH=`echo "$QUERY_STRING" | sed -n 's/^.*tsHowMuch=\([^&]*\).*$/\1/p' | sed "s/%20/ /g"`
 
-
+WEB_REBOOT=`echo "$QUERY_STRING" | sed -n 's/^.*reboot=\([^&]*\).*$/\1/p' | sed "s/%20/ /g"`
 #ACUMULADOR DE HORRORES
 ACCUM=""
 
@@ -126,6 +126,12 @@ fi
 if [ ! -z $WEB_WIRELESS_MODE ]
 then
 	wifi_mode $WEB_WIRELESS_MODE
+fi
+
+if [ ! -z $WEB_REBOOT ]
+then
+	reboot
+	ACCUM=$ACCUM"<br>" "OK: REBOOTING"
 fi
 
 # our html code

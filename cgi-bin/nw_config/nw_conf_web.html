@@ -45,15 +45,22 @@ HEADER
 echo "<div id=\"box\">"
 
 ##### Boton para guardar cambios y reiniciar el nodo  #####
-cat <<FORM_SAVE
-<center>
-        <form name="form1" action="./saveAndReboot.cgi" METHOD="POST" onsubmit="return upgr.ajax()">	
-        <INPUT TYPE="submit" NAME="set" VALUE="Guardar y Reiniciar">
-        </form>		
-FORM_SAVE
+####TODO AL ESTILO FIRMWARE DEL NANOSTATION2
+#cat <<FORM_SAVE
+#<center>
+#        <form name="form1" action="./saveAndReboot.cgi" METHOD="POST" onsubmit="return upgr.ajax()">	
+#       <INPUT TYPE="submit" NAME="set" VALUE="Guardar y Reiniciar">
+#        </form>		
+#FORM_SAVE
 
 
 cat <<BASIC_SETTINGS
+<div id="box">
+	<center><h1>Nightwing Basic Config</h1></center>
+</div>
+<p></p>
+<div id="box">
+<center>
 <form name="frmBasicSettings" action="basicSettings.cgi" METHOD="GET">
 			Root Password:<input type="text" name="rootPass" /><br>
 			WPA2 Password:<input type="text" name="wpa2Pass" /><br>
@@ -72,8 +79,11 @@ cat <<BASIC_SETTINGS
 			</SELECT> <b>Actual:</b>$WMODE<br>
 			Traffic Shaping Status:<input type="checkbox" name="tsStatus" /> <b>Status:</b> $TS_STATUS<br>
 			Traffic Shaping How Much:<input type="text" name="tsHowMuch" /> <b>Sharing:</b> $TS_SHARE_RATE<br>
-			<INPUT TYPE="submit" NAME="set" VALUE="SaveBasicSettings">
+			Reiniciar Nodo:<input type="checkbox" name="reboot" /><br>
+			<INPUT TYPE="submit" NAME="set" VALUE="SaveBasicSettings"><br>
 </form>
+</center>
+</div>
 BASIC_SETTINGS
 
 

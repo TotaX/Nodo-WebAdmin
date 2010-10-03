@@ -56,7 +56,7 @@ BEGIN {
 		printf "<li>"
 			printf "<b>Cliente</b>=%s<br>	<b>IP</b>=%s<br>	<b>MAC</b>=%s<br>	<b>HOSTNAME</b>=%s\n", CLIENT_ID,IP,MAC,HOST
 			printf "<br><b>Downloaded</b>=%0.2fMb <b>Uploaded</b>=%0.2fMb\n", DOWN/1024/1024, UP/1024/1024
-			printf "<br>Reset User:<input type=\"checkbox\" name=\"client_%s\" /><br>", CLIENT_ID
+			printf "<br><b>Reset User:</b><input type=\"checkbox\" name=\"client_%s\" /><br>", CLIENT_ID
 		print "</li>"
 }
 

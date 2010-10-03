@@ -19,7 +19,7 @@
   <body>
     <div id="menu">
       <ul id="nav">
-        <li id="home"><a href="/lugro">Home</a></li>
+        <li id="home"><a href="/">Home</a></li>
         <li id="info"><a href="../info.html">Info</a></li>
         <li id="up"><a href="../upgrade.html">Upgrade</a></li>
         <li id="cs"<a href="../clientOnLine.html">ClientStatus</a></li>

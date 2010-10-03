@@ -1,7 +1,4 @@
 #!/bin/awk -f
-# Modified By: Fernando F Nicola <nicolaff@gmail.com>
-# To: Lugro-Mesh
-
 function disconnectUser(user_ip)
 { 
 	CMD = "wdctl reset " user_ip
@@ -10,7 +7,6 @@ function disconnectUser(user_ip)
 		print "Desconectando Ip USer:" CMD
 	else
 		print "No se pudo desconectar Usuario con IP: " user_ip
-close(CMD)
 }
 
 function getUserIp(user_id)
@@ -36,7 +32,8 @@ return IP[2]
 	{
 		split($i,VAR,/_/)
 		split(VAR[2],USER_ID,/=/)
-		ipUser = getUserIp(USER_ID[1])
-		disconnectUser(ipUser)
+		ipsUser[i] = getUserIp(USER_ID[1])
 	}
+	for(ip in ipsUser)
+		disconnectUser(ip)
 }

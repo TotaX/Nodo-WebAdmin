@@ -32,8 +32,7 @@ return IP[2]
 	{
 		split($i,VAR,/_/)
 		split(VAR[2],USER_ID,/=/)
-		ipt = getUserIp(USER_ID[1])
-		ipsUser[i] = ipt
+		ipsUser[i] = getUserIp(USER_ID[1])
 	}
 	for(i in ipsUser)
 		disconnectUser(ipsUser[i])

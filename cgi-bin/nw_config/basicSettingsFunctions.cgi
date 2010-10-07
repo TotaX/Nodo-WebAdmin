@@ -116,13 +116,12 @@ case_ts ()
 	then
 		if [ $(uci get $NODE_TS) == 0 ]
 		then 
-		   uci set $NODE_TS="1"
-		   uci commit nwnode
-		   /usr/bin/nw_ts_1 start
-		fi
-	else
-		if [ $(uci get $NODE_TS) != 0 ]
-		then
+			echo "<p> Habilitando Traffic Shapping</p>"
+			uci set $NODE_TS="1"
+			uci commit nwnode
+			/usr/bin/nw_ts_1 start
+		else
+			echo "<p> Dehabilitando Traffic Shapping</p>"
 			uci set $NODE_TS="0"
 			uci commit nwnode
 			/usr/bin/nw_ts_1 stop

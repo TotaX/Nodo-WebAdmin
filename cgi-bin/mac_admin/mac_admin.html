@@ -1,0 +1,50 @@
+#!/bin/sh
+# Modified By: Fernando F Nicola <nicolaff@gmail.com>
+# To: Lugro-Mesh
+
+PATH=/bin:/usr/bin:/sbin:/usr/sbin
+######## This Environment ####
+##
+
+######## HEADER ###########
+echo -e "Content-type: text/html\n\n" 
+
+cat << HEADER
+$(cat /www/cgi-bin/mac_admin/header_html)
+ <script type="text/javascript">
+    var upgr={
+	ajax:function(st)
+	{
+	    this.show('mostrar');
+	},
+	show:function(el)
+	{
+	    this.getID(el).style.display='';
+	},
+	getID:function(el)
+	{
+	    return document.getElementById(el);
+	}
+    }
+ </script>
+HEADER
+
+#########################
+####### MAIN VIEW #######
+#########################
+cat << MAIN
+<div id="box">
+	<center><h1>Nightwing MAC Admin</h1></center>
+<p></p>
+<center>
+<form name="frmMAC_Admin" action="macAdmin.cgi" METHOD="GET">
+			<INPUT TYPE="submit" VALUE="SaveBasicSettings"><br>
+</form>
+</center>
+</div>
+MAIN
+
+######## FOOTER #########
+cat <<FOOTER
+$(cat /www/cgi-bin/mac_admin/footer_html)
+FOOTER

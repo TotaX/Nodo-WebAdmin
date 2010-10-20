@@ -16,11 +16,10 @@ TS_SHARE_RATE=$(uci get "nwnode.ts.share_rate")
 #TS_SHARE_RATE=128
 
 ######## HEADER ###########
+echo -e "Content-type: text/html\n\n" 
 
-cat <<HEADER
-
-$(cat header_html)
-
+cat << HEADER
+$(cat /www/cgi-bin/nw_config/header_html)
  <script type="text/javascript">
     var upgr={
 	ajax:function(st)
@@ -91,6 +90,6 @@ echo "</div>"
 ######## FOOTER #########
 cat <<FOOTER
 
-$(cat footer_html)
+$(cat /www/cgi-bin/nw_config/footer_html)
 
 FOOTER

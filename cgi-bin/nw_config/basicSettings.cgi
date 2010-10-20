@@ -1,9 +1,7 @@
 #!/bin/sh
-
 # Modified By: Fernando F Nicola <nicolaff@gmail.com>
 # To: Lugro-Mesh
-
-. ./basicSettingsFunctions.cgi
+. /www/cgi-bin/nw_config/basicSettingsFunctions.cgi
 
 #{
 # **************** Basic Config *****************
@@ -21,7 +19,7 @@
 #	g.howmuch
 #
 #}
-echo "Content-type: text/html\n"
+
 
 # read in our parameters
 WEB_ROOT_PASSWORD=`echo "$QUERY_STRING" | sed -n 's/^.*rootPass=\([^&]*\).*$/\1/p' | sed "s/%20/ /g"`
@@ -100,7 +98,7 @@ fi
 
 if [ ! -z $HTTP_REINICIAR ]
 then
-	kill -9 $(pidof httpd);/etc/init.d/httpd start;
+	/etc/init.d/uhttp stop;sleep 1;/etc/init.d/uhttp start
 fi
 
 if [ ! -z $WEB_WIFIDOG_ACCESS ]
@@ -135,9 +133,19 @@ then
 fi
 
 # our html code
-echo "<html>"
-echo "<head><title>Base Settings Changed!</title></head>"
-echo "<body>"
-echo "$ACCUM"
-echo "</body>"
-echo "</html>"
+echo -e "Content-type: text/html\n\n"
+
+cat << HEADER
+$(cat /www/cgi-bin/nw_config/header_html)
+HEADER
+
+cat << BODY
+<div id="box">
+$(if [ -z $ACCUM ]; then echo "Ningun Campo Seleccionado"; else echo $ACCUM; fi)
+$ACCUM
+</div>
+BODY
+
+cat << FOOTER
+$(cat /www/cgi-bin/nw_config/footer_html)
+FOOTER

@@ -1,5 +1,7 @@
 #!/bin/sh
 PATH=/bin:/usr/bin:/sbin:/usr/sbin
+
+echo -e "Content-type: text/html\n\n" 
 cat << EOF
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
@@ -22,9 +24,9 @@ cat << EOF
       <ul id="nav">
         <li id="home"><a href="/">Home</a></li>
         <li id="info" class="activelink"><a href="#">Info</a></li>
-        <li id="up"><a href="upgrade.html">Upgrade</a></li>
-        <li id="cs"><a href="clientOnLine.html">ClientStatus</a></li>
-		<li id="nw_conf"> <a href="nw_config/nw_conf_web.html">nw_conf</a></li>
+        <li id="cs"><a href="clientOnLine.html">Client Status</a></li>
+	<li id="nw_conf"> <a href="nw_config/nw_conf_web.html">Config</a></li>
+	<li id="mac_admin"> <a href="mac_admin/mac_admin.html">MAC Admin</a></li>
       </ul>
     </div>
 EOF
@@ -37,7 +39,7 @@ wifidog.node.ssl wifidog.node.change
 do
    let i=$i+1
    eval $(echo tmp=$(uci get $element))
-   eval VAR${i}=$(httpd -d $tmp)
+   eval VAR${i}=$(uhttpd -d $tmp)
 done
 cat << EOF
 <div id="box">
@@ -73,3 +75,4 @@ cat << EOF
 </body>
 </html>
 EOF
+

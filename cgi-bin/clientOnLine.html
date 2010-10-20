@@ -3,7 +3,9 @@
 # To: Lugro-Mesh
 
 PATH=/bin:/usr/bin:/sbin:/usr/sbin
-cat <<EOF
+
+echo -e "Content-type: text/html\n\n" 
+cat << EOF
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
@@ -27,9 +29,9 @@ cat <<EOF
       <ul id="nav">
         <li id="home"><a href="/">Home</a></li>
         <li id="info"><a href="info.html">Info</a></li>
-        <li id="up"><a href="upgrade.html">Upgrade</a></li>
-        <li id="cs" class="activelink"><a href="#">ClientStatus</a></li>
-		<li id="nw_conf"> <a href="nw_config/nw_conf_web.html">nw_conf</a></li>
+        <li id="cs" class="activelink"><a href="#">Client Status</a></li>
+	<li id="nw_conf"> <a href="nw_config/nw_conf_web.html">Config</a></li>
+	<li id="mac_admin"> <a href="mac_admin/mac_admin.html">MAC Admin</a></li>
       </ul>
     </div>
 EOF
@@ -74,7 +76,7 @@ END {
 }')
 EOF
 	
-cat <<EOF
+cat << EOF
 <p></p>                                                                                                                                             
 <div id="footer">                                                                                                                                   
 <center>                                                                                                                                            

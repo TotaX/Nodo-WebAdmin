@@ -1,19 +1,14 @@
 #!/bin/sh
 # Modified By: Fernando F Nicola <nicolaff@gmail.com>
-# To: Lugro-Mesh
+# To: LUGRo-Mesh
 
 PATH=/bin:/usr/bin:/sbin:/usr/sbin
 ######## This Environment ####
 HOSTNAME=$(uci get "system.@system[0].hostname")
-#HOSTNAME=NanoteX
 WEB_USER=$(awk -F: '{print $2}' /etc/httpd.conf)
-#WEB_USER=$(awk -F: '{print $2}' /home/nano/WWW_LUGRO/httpd.conf)
 WMODE=$(uci get "wireless.wifi0.hwmode")
-#WMODE="11g"
 TS_STATUS=$(if [ $(uci get "nwnode.ts.status") != 0 ]; then echo Mode Enable; else echo Mode Disable;fi)
-#TS_STATUS=Enable
 TS_SHARE_RATE=$(uci get "nwnode.ts.share_rate")
-#TS_SHARE_RATE=128
 
 ######## HEADER ###########
 echo -e "Content-type: text/html\n\n" 
@@ -43,45 +38,35 @@ HEADER
 #########################
 echo "<div id=\"box\">"
 
-##### Boton para guardar cambios y reiniciar el nodo  #####
-####TODO AL ESTILO FIRMWARE DEL NANOSTATION2
-#cat <<FORM_SAVE
-#<center>
-#        <form name="form1" action="./saveAndReboot.cgi" METHOD="POST" onsubmit="return upgr.ajax()">	
-#       <INPUT TYPE="submit" NAME="set" VALUE="Guardar y Reiniciar">
-#        </form>		
-#FORM_SAVE
-
-
 cat <<BASIC_SETTINGS
 <div id="box">
 	<center><h1>Nightwing Basic Config</h1></center>
 </div>
 <p></p>
 <div id="box">
-<center>
 <form name="frmBasicSettings" action="basicSettings.cgi" METHOD="GET">
-			Root Password:<input type="text" name="rootPass" /><br>
-			WPA2 Password:<input type="text" name="wpa2Pass" /><br>
-			WEB User:<input type="text" name="webUser" /><b>Actual WebUser: </b>$WEB_USER<br>
-			WEB Password:<input type="text" name="webPass" /><br>
-			WiFiDog:<input type="text" name="wifiDog" /><br>
-			Hostname:<input type="text" name="hostname" /> <b>Actual HostName:</b>$HOSTNAME<br>
-			WirelessMode:
+			Root Password: <input type="text" name="rootPass" /><br>
+			WPA2 Passphrase: <input type="text" name="wpa2Pass" /><br>
+			WEB User: <input type="text" name="webUser" /> <b>Current WebUser: </b>$WEB_USER<br>
+			WEB Password: <input type="text" name="webPass" /><br>
+			WiFiDog Password: <input type="text" name="wifiDog" /><br>
+			Hostname: <input type="text" name="hostname" /> <b>Current HostName: </b>$HOSTNAME<br>
+			Wireless Mode:
 			 <SELECT name="wirelesMode">
-				<OPTION selected label="ninguno" value="">Ninguno</OPTION>
+				<OPTION selected label="none" value="">None</OPTION>
 				<OPTGROUP label="Please Select A Wireless Mode">
 					<OPTION label="3.7.1" value="11b">11b</OPTION>
 					<OPTION label="3.7" value="11g">11g</OPTION>
 					<OPTION label="3.5" value="11bg">11bg</OPTION>
 				</OPTGROUP>
-			</SELECT> <b>Actual:</b>$WMODE<br>
-			Traffic Shaping Status:<input type="checkbox" name="tsStatus" /> <b>Status:</b> $TS_STATUS<br>
-			Traffic Shaping How Much:<input type="text" name="tsHowMuch" /> <b>Sharing:</b> $TS_SHARE_RATE<br>
-			Reiniciar Nodo:<input type="checkbox" name="reboot" /><br>
+			</SELECT> <b>Current: </b>$WMODE<br>
+			Traffic Shaping Status: <input type="checkbox" name="tsStatus" /> <b>Status:</b> $TS_STATUS<br>
+			Traffic Shaping How Much: <input type="text" name="tsHowMuch" /> <b>Sharing:</b> $TS_SHARE_RATE<br>
+			Reboot Node: <input type="checkbox" name="reboot" /><br>
+			<center>
 			<INPUT TYPE="submit" NAME="set" VALUE="SaveBasicSettings"><br>
+			</center>
 </form>
-</center>
 </div>
 BASIC_SETTINGS
 

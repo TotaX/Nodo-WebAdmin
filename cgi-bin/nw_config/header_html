@@ -13,6 +13,13 @@
       window.onload=function(){
           Nifty("ul#nav a","small transparent top");
           Nifty("div#box","big");
+		  setTimeout('delayed()',5000);
+      }
+      function delayed(){
+      	if(!window.location.toString().match(/nw_conf_web/)){
+         window.location =  "/cgi-bin/nw_config/nw_conf_web.html"
+         window.location.replace();
+        } 
       }
     </script>
   </head>

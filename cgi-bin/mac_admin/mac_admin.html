@@ -1,50 +1,107 @@
 #!/bin/sh
 # Modified By: Fernando F Nicola <nicolaff@gmail.com>
-# To: Lugro-Mesh
+# To: LUGRo-Mesh
 
 PATH=/bin:/usr/bin:/sbin:/usr/sbin
-######## This Environment ####
-##
 
-######## HEADER ###########
 echo -e "Content-type: text/html\n\n" 
+cat << EOF
 
-cat << HEADER
-$(cat /www/cgi-bin/mac_admin/header_html)
- <script type="text/javascript">
-    var upgr={
-	ajax:function(st)
-	{
-	    this.show('mostrar');
-	},
-	show:function(el)
-	{
-	    this.getID(el).style.display='';
-	},
-	getID:function(el)
-	{
-	    return document.getElementById(el);
-	}
-    }
- </script>
-HEADER
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <title>Nightwing: MAC Administrator</title>
+	<META NAME="Author" CONTENT="Fernando F Nicola">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" type="text/css" href="../../style.css">
+    <link rel="stylesheet" type="text/css" href="../../niftyCorners.css">
+    <script type="text/javascript" src="../../niftycube.js"></script>
+    <script type="text/javascript" src="forms.js"> </script>
+    <script type="text/javascript">
+      window.onload=function(){
+          Nifty("ul#nav a","small transparent top");
+          Nifty("div#box","big");
+		  loadForm('creaForm.cgi','',creaForm);
+      }
+    </script>
+	<script type="text/javascript">
+		function loadForm(url, parameters,handle)
+		{
+			if (window.XMLHttpRequest) { // Mozilla, Safari,...
+				http_request = new XMLHttpRequest();
+				if (http_request.overrideMimeType)
+				{
+					http_request.overrideMimeType('text/xml');
+				}
+			}
 
-#########################
-####### MAIN VIEW #######
-#########################
-cat << MAIN
-<div id="box">
-	<center><h1>Nightwing MAC Admin</h1></center>
+			http_request.onreadystatechange = handle;
+			http_request.open('GET', url + parameters, true);
+			http_request.send(null);
+		}
+		function creaForm() {
+			if (http_request.readyState == 4) {
+				if (http_request.status == 200) {			
+					result = http_request.responseText;
+					var divv = document.getElementById('macs');
+					divv.innerHTML = result;
+				} else {
+					alert('There was a problem with the request.');
+					var divv = document.getElementById('macs');
+					divv.innerHTML = 'There was a problem with the request.';
+				}
+			}
+		}
+	   function gestionMACList(){
+		   if (http_request.readyState == 4) {
+				if (http_request.status == 200) {			
+					result = http_request.responseText;
+					var divv = document.getElementById('mac_list');
+					divv.innerHTML = "OK";
+				} else {
+					alert('There was a problem with the request.');
+					var divv = document.getElementById('mac_list');
+					divv.innerHTML = 'There was a problem with the request.';
+				}
+			}
+		}
+	</script>
+  </head>
+  <body>
+    <div id="menu">
+      <ul id="nav">
+        <li id="home"><a href="/">Home</a></li>
+        <li id="info"><a href="../info.html">Info</a></li>
+        <li id="cs"><a href="../clientOnLine.html">Client Status</a></li>
+	<li id="nw_conf"> <a href="../nw_config/nw_conf_web.html">Config</a></li>
+	<li id="mac_admin" class="activelink"><a href="#">MAC Admin</a></li>
+      </ul>
+    </div>
+	<div id="box">
+		<center><h1>MAC Administrator</h1></center>
+		<center>
+		<div id="macs">
+		Loading...
+		</div>
+	</center> <br/>
+	<center>
+	<INPUT TYPE=BUTTON onclick="loadForm('gestionMACList.cgi','?clear=true',gestionMACList);" VALUE="Clear list">  
+	<INPUT TYPE=BUTTON onclick="loadForm('gestionMACList.cgi','?white=true',gestionMACList);" VALUE="White list">  
+	<INPUT TYPE=BUTTON onclick="loadForm('gestionMACList.cgi','?black=true',gestionMACList);" VALUE="Black list">  
+	<div id="mac_list">
+	</div>
+	</center>
+	</div>
+EOF
+
+cat << EOF
 <p></p>
+<div id="footer">
 <center>
-<form name="frmMAC_Admin" action="macAdmin.cgi" METHOD="GET">
-			<INPUT TYPE="submit" VALUE="SaveBasicSettings"><br>
-</form>
+        <p>Nightwing by <a href="http://www.lugro-mesh.org.ar/>LUGRo-Mesh</a></p>
 </center>
 </div>
-MAIN
+</body>
+</html>
+EOF
 
-######## FOOTER #########
-cat <<FOOTER
-$(cat /www/cgi-bin/mac_admin/footer_html)
-FOOTER

@@ -50,6 +50,7 @@ cat << EOF
 <li><b>Node Mode:</b> $VAR2</li>
 <li><b>Gateway Class:</b> $VAR3</li>
 <li><b>Routing Class:</b> $VAR4</li>
+$(if [ $(uci get bmx_mode.node.mode) == 'client' ]; then echo "<li><b>Gateway IP:</b> $(bmxd -c -d2 | grep "=>" | awk '{ print $2 }')</li>"; fi)
 <li><b>Host Name:</b> $VAR5</li>
 <li><b>Server Log IP:</b> $VAR6</li>
 <li><b>Visualisation Server:</b> $VAR7</li>
@@ -57,13 +58,14 @@ cat << EOF
 <li><b>Wireless Mode:</b> $VAR9</li>
 <li><b>Antenna Mode:</b> $VAR10</li>
 <li><b>Mesh BSSID:</b> $VAR11</li>
-<li><b>Node TS Mode:</b> $(if [ $VAR12 != "0" ];then echo "Enable";else echo "Disable";fi)</li>
+<li><b>Node TS Mode:</b> $(if [ $VAR12 != "0" ];then echo "Enabled";else echo "Disabled";fi)</li>
 <li><b>Share Rate:</b> $VAR13 kbps</li>
 <li><b>Public AP SSID:</b> $VAR14</li>
 <li><b>Private AP SSID:</b> $VAR15</li>
 <li><b>WiFiDog Server:</b> $VAR16</li>
 <li><b>WiFiDog SSL:</b> $VAR17</li>
 <li><b>Current DNS:</b> $(for i in $( cat /etc/resolv.conf.default | grep ^nameserver | cut -d " " -f2); do echo -n $i","; done | sed 's/,$//')</li>
+<li><b>Uptime:</b> $(uptime|cut -d, -f1) </li>
 </ul>
 </div>
 <p></p>

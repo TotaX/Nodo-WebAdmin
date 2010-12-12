@@ -4,9 +4,9 @@ function disconnectUser(user_ip)
 	CMD = "wdctl reset " user_ip
 	CMD | getline RESULT
 	if (RESULT ~ "successfully")
-		print "Desconectando Ip USer:" user_ip
+		print "Disconnecting User with IP: " user_ip
 	else
-		print "No se pudo desconectar Usuario con IP: " user_ip
+		print "Couldn't disconnect User with IP: " user_ip
 close(CMD)
 }
 

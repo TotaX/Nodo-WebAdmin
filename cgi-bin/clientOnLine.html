@@ -1,6 +1,6 @@
 #!/bin/sh
 # Modified By: Fernando F Nicola <nicolaff@gmail.com>
-# To: Lugro-Mesh
+# To: LUGRo-Mesh
 
 PATH=/bin:/usr/bin:/sbin:/usr/sbin
 
@@ -41,7 +41,7 @@ $(wdctl status | awk '
 BEGIN {
 		boolUserConect=0
 		print "<div id=\"box\">"
-		print "<center><b>Users On Line</b></center>"
+		print "<center><b>Users OnLine</b></center>"
 		print "<form name=\"frmClientOnline\" action=\"resetUsersSelected.cgi\" METHOD=\"GET\">"
 			print "<br>"
 			print "<ul>"
@@ -61,7 +61,7 @@ BEGIN {
 		COMANDO="grep " MAC " /tmp/dhcp.leases | cut -d\"\ \" -f4"
 		COMANDO | getline HOST
 		printf "<li>"
-			printf "<b>Cliente</b>=%s<br>	<b>IP</b>=%s<br>	<b>MAC</b>=%s<br>	<b>HOSTNAME</b>=%s\n", CLIENT_ID,IP,MAC,HOST
+			printf "<b>Client</b>=%s<br>	<b>IP</b>=%s<br>	<b>MAC</b>=%s<br>	<b>HOSTNAME</b>=%s\n", CLIENT_ID,IP,MAC,HOST
 			printf "<br><b>Downloaded</b>=%0.2fMb <b>Uploaded</b>=%0.2fMb\n", DOWN/1024/1024, UP/1024/1024
 			printf "<br><b>Reset User:</b><input type=\"checkbox\" name=\"client_%s\" /><br>", CLIENT_ID
 		print "</li>"

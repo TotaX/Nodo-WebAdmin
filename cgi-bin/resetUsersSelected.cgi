@@ -1,6 +1,6 @@
 #!/bin/sh
 # Modified By: Fernando F Nicola <nicolaff@gmail.com>
-# To: Lugro-Mesh
+# To: LUGRo-Mesh
 
 # our html code
 echo -e "Content-type: text/html\n\n"
@@ -11,8 +11,8 @@ cat << HEADER
     <title>Nightwing: Client Info</title>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
 	<META NAME="Author" CONTENT="Fernando F Nicola"> 
-	<META NAME="description" CONTENT="Lugro-mesh Gestion de Nodo|Client Status And Disconnect">
-	<META NAME="Copyright" CONTENT="Lugro-Mesh 2008-2010 Todos los derechos reservados.">
+	<META NAME="description" CONTENT="LUGRo-Mesh Node Admin|Client Status And Disconnect">
+	<META NAME="Copyright" CONTENT="LUGRo-Mesh (C) 2008-2010.">
     <link rel="stylesheet" type="text/css" href="../style.css">
     <link rel="stylesheet" type="text/css" href="../niftyCorners.css">
     <script type="text/javascript" src="../niftycube.js"></script>
@@ -21,9 +21,15 @@ cat << HEADER
           Nifty("ul#nav a","small transparent top");
           Nifty("div#box","big");
       }
+      function delayer(){
+      if(!window.location.toString().match(/clientOnLine/)){
+      	    window.location =  "/cgi-bin/clientOnLine.html"
+      	    window.location.replace();
+      	}
+      }
     </script>
   </head>
-  <body>
+  <body onLoad="setTimeout('delayer()',5000)">
     <div id="menu">
       <ul id="nav">
         <li id="home"><a href="/">Home</a></li>
